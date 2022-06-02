@@ -1,8 +1,9 @@
 package menu;
 
+import model.Broker;
 import persistence.RepositoryBroker;
-import persistence.RepositoryCustomer;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuBroker {
@@ -15,9 +16,8 @@ public class MenuBroker {
         System.out.println();
         System.out.println("1: Save a new broker");
         System.out.println("2: Update broker information");
-        System.out.println("3: List total active brokers");
-        //System.out.println("4: List total active and not active customers");
-        //System.out.println("5: Update customers phone number by customer id");
+        System.out.println("3: List of all brokers");
+        System.out.println("4: Delete a broker");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -30,12 +30,16 @@ public class MenuBroker {
             userChoice = menuOptions(input);
             switch (userChoice) {
                 case 1:
+                    menuSaveBroker(input);
                     break;
                 case 2:
+                    menuUpdateBroker(input);
                     break;
                 case 3:
+                    menuListOfBrokers();
                     break;
                 case 4:
+                    menuDeleteBroker(input);
                     break;
                 case 5:
                     break;
@@ -48,5 +52,51 @@ public class MenuBroker {
                     break;
             }// End of switch statement
         } while (userChoice != 100);
+    }
+
+    private void menuSaveBroker(Scanner input) {
+        Broker broker = new Broker();
+        System.out.println("Type the broker name without any space");
+        String name = input.next();
+        broker.setName(name);
+
+        System.out.println("Type the country of the broker without any space");
+        String country = input.next();
+        broker.setCountry(country);
+
+        repositoryBroker.saveBroker(broker);
+
+    }
+
+    private void menuDeleteBroker(Scanner input){
+        Broker broker = new Broker();
+        System.out.println("Type the ID of the broker you want to delete");
+        int id = input.nextInt();
+        broker.setBroker_id(id);
+
+        repositoryBroker.deleteBroker(broker);
+    }
+
+    private void menuListOfBrokers() {
+        List<Broker> list = repositoryBroker.listAllBrokers();
+        for (Broker broker:list) {
+            System.out.println(broker.toString());
+        }
+    }
+
+    private void menuUpdateBroker(Scanner input) {
+        Broker broker = new Broker();
+        System.out.println("Type the id of the broker you want to update");
+        int id = input.nextInt();
+        broker.setBroker_id(id);
+        System.out.println("Type the broker name without any space");
+        String name = input.next();
+        broker.setName(name);
+
+        System.out.println("Type the country of the broker without any space");
+        String country = input.next();
+        broker.setCountry(country);
+
+        repositoryBroker.updateBroker(broker);
     }
 }

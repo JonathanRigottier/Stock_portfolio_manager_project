@@ -1,10 +1,11 @@
 package persistence;
 
 import model.Broker;
+import model.Customer;
 import util.DBUtil;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
+import java.util.List;
 
 public class RepositoryBroker {
 
@@ -16,7 +17,6 @@ public class RepositoryBroker {
 
     public void saveBroker (Broker broker) {  //dml
         try {
-            LocalDate dateOfRegister = LocalDate.now();
             this.entityManager.getTransaction().begin();
             this.entityManager.persist(broker);
             this.entityManager.getTransaction().commit();
@@ -24,5 +24,35 @@ public class RepositoryBroker {
             this.entityManager.getTransaction().rollback();
         }
     }
+
+    public void deleteBroker (Broker broker) {
+        try {
+            this.entityManager.getTransaction().begin();
+            this.entityManager.remove(entityManager.merge(broker));
+            this.entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
+    }
+
+    public List<Broker> listAllBrokers(){
+        return this.entityManager
+                .createQuery("FROM Broker", Broker.class)
+                .getResultList();
+    }
+
+    public void updateBroker (Broker broker) {
+        try {
+            this.entityManager.getTransaction().begin();
+            this.entityManager.merge(broker);
+            this.entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
+
+    }
+
 
 }

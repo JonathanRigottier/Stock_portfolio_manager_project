@@ -18,10 +18,12 @@ public class MenuCustomer {
         System.out.println("-------------------------\n");
         System.out.println();
         System.out.println("1: List all customers");
-        System.out.println("2: Update account status");
+        System.out.println("2: Register new customer");
         System.out.println("3: List total active customers");
         System.out.println("4: List total active and not active customers");
         System.out.println("5: Update customers phone number by customer id");
+        System.out.println("6: Update account status");
+        System.out.println("7: Delete a customer");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -37,12 +39,18 @@ public class MenuCustomer {
                     menuListAllCustomers(input);
                     break;
                 case 2:
+                    menuSaveCustomer(input);
                     break;
                 case 3:
                     break;
                 case 4:
                     break;
                 case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    menuDeleteCustomer(input);
                     break;
                 case 100:
                     MainMenu.getMainMenu();
@@ -75,6 +83,7 @@ public class MenuCustomer {
         Customer customer = new Customer();
         System.out.println("Type the customer name");
         String name = input.next();
+        customer.setFirstName(name);
         boolean emailIsValid = false;
 
 
@@ -82,11 +91,13 @@ public class MenuCustomer {
             System.out.println("Type the customer email");
             String email = input.next();
             emailIsValid = validEmail(email);
+            customer.setEmail(email);
         }
         System.out.println("Type the customer phone number");
         String phoneNumber = input.next();
+        customer.setPhoneNumber(phoneNumber);
 
-        //repositoryCustomer.saveCustomer(customer);
+        repositoryCustomer.saveCustomer(customer);
 
     }
 
@@ -94,6 +105,15 @@ public class MenuCustomer {
         String regex = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(email).matches(); //if valid returns true, if not returns false
+    }
+
+    private void menuDeleteCustomer(Scanner input){
+        Customer customer = new Customer();
+        System.out.println("Type the ID of the customer you want to delete");
+        int id = input.nextInt();
+        customer.setCustomerId(id);
+
+        repositoryCustomer.deleteCustomer(customer);
     }
 
 }

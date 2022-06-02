@@ -19,7 +19,26 @@ public class RepositoryCustomer {
                 .getResultList();
     }
 
-    private void menuSaveCustomer(Customer customer) {
-
+    public void saveCustomer(Customer customer) {
+        try {
+            this.em.getTransaction().begin();
+            this.em.persist(customer);
+            this.em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.em.getTransaction().rollback();
+        }
     }
+
+    public void deleteCustomer (Customer customer) {
+        try {
+            this.em.getTransaction().begin();
+            this.em.remove(em.merge(customer));
+            this.em.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            this.em.getTransaction().rollback();
+        }
+    }
+
 }

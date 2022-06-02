@@ -20,7 +20,7 @@ public class SubMenuOptions {
         System.out.println();
         System.out.println("1: Sub Menu - Customer");
         System.out.println("2: Sub Menu - Delivery");
-        System.out.println("3: Sub Menu - Add a Broker");
+        System.out.println("3: Sub Menu - Broker");
         System.out.println("4: Sub Menu - <NAME>");
         System.out.println("100 - Quit");
         System.out.println("***************************************************");
