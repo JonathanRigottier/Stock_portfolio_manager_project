@@ -56,12 +56,13 @@ public class MenuBroker {
 
     private void menuSaveBroker(Scanner input) {
         Broker broker = new Broker();
-        System.out.println("Type the broker name without any space");
-        String name = input.next();
+        System.out.println("Type the broker name : ");
+        input.nextLine();
+        String name = input.nextLine();
         broker.setName(name);
 
-        System.out.println("Type the country of the broker without any space");
-        String country = input.next();
+        System.out.println("Type the country of the broker : ");
+        String country = input.nextLine();
         broker.setCountry(country);
 
         repositoryBroker.saveBroker(broker);
@@ -86,17 +87,19 @@ public class MenuBroker {
 
     private void menuUpdateBroker(Scanner input) {
         Broker broker = new Broker();
-        System.out.println("Type the id of the broker you want to update");
+        System.out.println("Type the id of the broker you want to update : ");
         int id = input.nextInt();
         broker.setBroker_id(id);
-        System.out.println("Type the broker name without any space");
-        String name = input.next();
+        System.out.println("Type the broker name : ");
+        input.nextLine();
+        String name = input.nextLine();
         broker.setName(name);
 
-        System.out.println("Type the country of the broker without any space");
-        String country = input.next();
+        System.out.println("Type the country of the broker : ");
+        String country = input.nextLine();
         broker.setCountry(country);
 
+        System.out.println("Broker information successfully updated");
         repositoryBroker.updateBroker(broker);
     }
 }

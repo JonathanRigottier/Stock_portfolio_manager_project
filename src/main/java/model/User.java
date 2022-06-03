@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class User {
@@ -12,6 +13,7 @@ public class User {
     private String username;
     private String password;
     private float amount_invested;
+    private LocalDate dateOfRegister = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "stock_ideas_list_id")
@@ -65,6 +67,14 @@ public class User {
         this.amount_invested = amount_invested;
     }
 
+    public LocalDate getDateOfRegister() {
+        return dateOfRegister;
+    }
+
+    public void setDateOfRegister(LocalDate dateOfRegister) {
+        this.dateOfRegister = dateOfRegister;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -73,6 +83,10 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", amount_invested=" + amount_invested +
+                ", dateOfRegister=" + dateOfRegister +
+                ", stock_ideas=" + stock_ideas +
+                ", portfolio=" + portfolio +
+                ", broker=" + broker +
                 '}';
     }
 }

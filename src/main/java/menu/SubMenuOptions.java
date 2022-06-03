@@ -6,10 +6,14 @@ public class SubMenuOptions {
     boolean exit = false;
     private MenuCustomer menuCustomer;
     private MenuBroker menuBroker;
+    private MenuUser menuUser;
+    private MenuStock menuStock;
 
     public SubMenuOptions() {
         this.menuCustomer = new MenuCustomer();
         this.menuBroker = new MenuBroker();
+        this.menuUser = new MenuUser();
+        this.menuStock = new MenuStock();
     }
 
 
@@ -19,9 +23,9 @@ public class SubMenuOptions {
         System.out.println("-------------------------------------------------------");
         System.out.println();
         System.out.println("1: Sub Menu - Customer");
-        System.out.println("2: Sub Menu - Delivery");
+        System.out.println("2: Sub Menu - User");
         System.out.println("3: Sub Menu - Broker");
-        System.out.println("4: Sub Menu - <NAME>");
+        System.out.println("4: Sub Menu - Stock");
         System.out.println("100 - Quit");
         System.out.println("***************************************************");
 
@@ -37,11 +41,13 @@ public class SubMenuOptions {
                     this.menuCustomer.menuChoice(input);
                     break;
                 case 2:
+                    this.menuUser.menuChoice(input);
                     break;
                 case 3:
                     this.menuBroker.menuChoice(input);
                     break;
                 case 4:
+                    this.menuStock.menuChoice(input);
                     break;
                 case 5:
                     break;

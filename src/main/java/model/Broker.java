@@ -16,11 +16,6 @@ public class Broker {
     private String country;
     private LocalDate dateOfRegister = LocalDate.now();
 
-    public Broker () {
-
-    }
-
-
     public int getBroker_id() {
         return broker_id;
     }
