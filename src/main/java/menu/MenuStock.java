@@ -22,6 +22,8 @@ public class MenuStock {
         System.out.println("2: Delete a stock");
         System.out.println("3: List of all stocks");
         System.out.println("4: Update stock price by entering id");
+        System.out.println("5: Average stock price");
+        System.out.println("6: Total user(s) for each broker");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -46,6 +48,7 @@ public class MenuStock {
                     menuUpdateStockPriceById(input);
                     break;
                 case 5:
+                    menuAverageStockPrice();
                     break;
                 case 100:
                     MainMenu.getMainMenu();
@@ -128,5 +131,13 @@ public class MenuStock {
         }
 
     }
+
+    private void menuAverageStockPrice() {
+
+        System.out.println();
+        System.out.println("The average stock price is " + repositoryStock.averageStockPrice() + ". ");
+    }
+
+
 
 }

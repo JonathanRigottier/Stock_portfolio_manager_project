@@ -18,6 +18,7 @@ public class MenuBroker {
         System.out.println("2: Update broker information");
         System.out.println("3: List of all brokers");
         System.out.println("4: Delete a broker");
+        System.out.println("5: List the number of user per broker");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -42,6 +43,7 @@ public class MenuBroker {
                     menuDeleteBroker(input);
                     break;
                 case 5:
+                    menuListOfUsersByBroker();
                     break;
                 case 100:
                     MainMenu.getMainMenu();
@@ -101,5 +103,12 @@ public class MenuBroker {
 
         System.out.println("Broker information successfully updated");
         repositoryBroker.updateBroker(broker);
+    }
+
+    private void menuListOfUsersByBroker () {
+        List<Broker> list = repositoryBroker.listOfUsersByBroker();
+        for (Broker broker : list) {
+            System.out.println(broker.toString());
+        }
     }
 }

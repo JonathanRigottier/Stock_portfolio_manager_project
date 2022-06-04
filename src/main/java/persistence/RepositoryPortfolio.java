@@ -1,33 +1,35 @@
 package persistence;
 
-import model.Broker;
+import model.Portfolio;
+import model.Stock_ideas;
 import util.DBUtil;
 
 import javax.persistence.EntityManager;
+import javax.sound.sampled.Port;
 import java.util.List;
 
-public class RepositoryBroker {
+public class RepositoryPortfolio {
 
     private EntityManager entityManager;
 
-    public RepositoryBroker() {
+    public RepositoryPortfolio() {
         entityManager = DBUtil.getEntityManager();
     }
 
-    public void saveBroker (Broker broker) {
+    public void savePortfolio (Portfolio portfolio) {
         try {
             this.entityManager.getTransaction().begin();
-            this.entityManager.persist(broker);
+            this.entityManager.persist(portfolio);
             this.entityManager.getTransaction().commit();
         } catch (Exception e) {
             this.entityManager.getTransaction().rollback();
         }
     }
 
-    public void deleteBroker (Broker broker) {
+    public void deletePortfolio (Portfolio portfolio) {
         try {
             this.entityManager.getTransaction().begin();
-            this.entityManager.remove(entityManager.merge(broker));
+            this.entityManager.remove(entityManager.merge(portfolio));
             this.entityManager.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
@@ -35,31 +37,21 @@ public class RepositoryBroker {
         }
     }
 
-    public List<Broker> listAllBrokers(){
+    public List<Portfolio> listAllPortfolios(){
         return this.entityManager
-                .createQuery("FROM Broker", Broker.class)
+                .createQuery("FROM Portfolio", Portfolio.class)
                 .getResultList();
     }
 
-    public void updateBroker (Broker broker) {
+    public void updatePortfolio (Portfolio portfolio) {
         try {
             this.entityManager.getTransaction().begin();
-            this.entityManager.merge(broker);
+            this.entityManager.merge(portfolio);
             this.entityManager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             this.entityManager.getTransaction().rollback();
         }
-
-    }
-
-    public List<Broker> listOfUsersByBroker() {
-        String sql = "SELECT b.name, COUNT(u.broker) " +
-                "FROM User u INNER JOIN Broker b ON u.broker = b.broker_id " +
-                "GROUP BY b.name ";
-
-        return this.entityManager.createQuery(sql, Broker.class)
-                .getResultList();
 
     }
 }

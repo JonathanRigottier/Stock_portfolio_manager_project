@@ -13,7 +13,11 @@ public class User {
     private String username;
     private String password;
     private float amount_invested;
-    private LocalDate dateOfRegister = LocalDate.now();
+    private LocalDate dateOfRegister;
+
+    public User() {
+        dateOfRegister = LocalDate.now();
+    }
 
     @ManyToOne
     @JoinColumn(name = "stock_ideas_list_id")
@@ -73,6 +77,30 @@ public class User {
 
     public void setDateOfRegister(LocalDate dateOfRegister) {
         this.dateOfRegister = dateOfRegister;
+    }
+
+    public Stock_ideas getStock_ideas() {
+        return stock_ideas;
+    }
+
+    public void setStock_ideas(Stock_ideas stock_ideas) {
+        this.stock_ideas = stock_ideas;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
+    }
+
+    public Broker getBroker() {
+        return broker;
+    }
+
+    public void setBroker(Broker broker) {
+        this.broker = broker;
     }
 
     @Override

@@ -62,4 +62,9 @@ public class RepositoryStock {
         }
     }
 
+    public double averageStockPrice () {
+        return (Double) entityManager.createQuery("SELECT avg(current_price) from Stock")
+                .getSingleResult();
+    }
+
 }

@@ -2,9 +2,11 @@ package menu;
 
 import model.Broker;
 import model.User;
+import model.userBrokerPortfolioStock_ideas;
 import persistence.RepositoryBroker;
 import persistence.RepositoryUser;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -22,6 +24,9 @@ public class MenuUser {
         System.out.println("2: Update user information");
         System.out.println("3: List of all users");
         System.out.println("4: Delete an user");
+        System.out.println("5: Total of user(s)");
+        System.out.println("6: List of users data");
+        System.out.println("7: List of users by typing the broker's name");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -46,6 +51,13 @@ public class MenuUser {
                     menuDeleteUser(input);
                     break;
                 case 5:
+                    menuCountTotalOfUsers();
+                    break;
+                case 6:
+                    menuUserBrokerPorfolioStock_ideas();
+                    break;
+                case 7:
+                    menuListOfUserByBrokerName(input);
                     break;
                 case 100:
                     MainMenu.getMainMenu();
@@ -54,7 +66,7 @@ public class MenuUser {
                     System.out.println("\nSorry, please enter valid Option");
                     menuOptions(input);
                     break;
-            }// End of switch statement
+            }
         } while (userChoice != 100);
     }
 
@@ -133,29 +145,68 @@ public class MenuUser {
         }
     }
 
+    private void menuUserBrokerPorfolioStock_ideas () {
+        List<userBrokerPortfolioStock_ideas> list = repositoryUser.listUsernameWithAmountStockWithBrokerWithStockIdeas();
+        for (userBrokerPortfolioStock_ideas user:list) {
+            System.out.println(user.toString());
+        }
+    }
+
     private void menuUpdateUser(Scanner input) {
         User user = new User();
-        System.out.println("Type the id of the user you want to update");
+        System.out.println("Type the id of the user you want to update : ");
         int id = input.nextInt();
         user.setUser_id(id);
 
-        System.out.println("Type the user name updated without any space");
+        System.out.println("Type the user name updated without any space : ");
         String name = input.next();
         user.setName(name);
 
-        System.out.println("Type the user username updated");
+        System.out.println("Type the user username updated : ");
         String username = input.next();
         user.setUsername(username);
 
-        System.out.println("Type the user password updated");
+        System.out.println("Type the user password updated : ");
         String password = input.next();
         user.setPassword(password);
 
-        System.out.println("Type the amount invested updated");
+        System.out.println("Type the amount invested updated : ");
         Float amountInvested = input.nextFloat();
         user.setAmount_invested(amountInvested);
 
+        /*System.out.println("Type de id of the broker used : ");
+        System.out.println("For Etoro, type number 1");
+        System.out.println("For Interactive Brokers, type number 4");
+        System.out.println("For Admiral Markets, type number 5");
+        System.out.println("For IG, type number 6");
+        System.out.println("For SaxoBank, type number 7");
+        System.out.println("For TastyWorks, type number 8");
+
+         */
 
         repositoryUser.updateUser(user);
+    }
+
+    private void menuCountTotalOfUsers() {
+
+        System.out.println();
+        System.out.println("There is " + repositoryUser.countTotalOfUser() + " users registered in the system. ");
+    }
+
+    private void menuListOfUserByBrokerName (Scanner input) {
+        System.out.println("Type the name of the broker you want to know all user : ");
+        input.nextLine();
+        String brokerName = input.nextLine();
+
+        List<User> list = repositoryUser.listOfUserRegisteredByBrokerChoice(brokerName);
+        for (User user : list) {
+            System.out.println(user.toString());
+        }
+        boolean ans = list.isEmpty();
+        if (ans == true) {
+            System.out.println();
+            System.out.println("There is no registered user for " + brokerName + ".");
+        }
+
     }
 }

@@ -14,7 +14,11 @@ public class Broker {
     private int broker_id;
     private String name;
     private String country;
-    private LocalDate dateOfRegister = LocalDate.now();
+    private LocalDate dateOfRegister;
+
+    public Broker() {
+        dateOfRegister = LocalDate.now();
+    }
 
     public int getBroker_id() {
         return broker_id;

@@ -4,16 +4,19 @@ import java.util.Scanner;
 
 public class SubMenuOptions {
     boolean exit = false;
-    private MenuCustomer menuCustomer;
+    private MenuPortfolio menuPortfolio;
     private MenuBroker menuBroker;
     private MenuUser menuUser;
     private MenuStock menuStock;
+    private MenuStock_ideas menuStock_ideas;
 
     public SubMenuOptions() {
-        this.menuCustomer = new MenuCustomer();
+        this.menuPortfolio = new MenuPortfolio();
         this.menuBroker = new MenuBroker();
         this.menuUser = new MenuUser();
         this.menuStock = new MenuStock();
+        this.menuStock_ideas = new MenuStock_ideas();
+
     }
 
 
@@ -22,10 +25,11 @@ public class SubMenuOptions {
         System.out.println("Main menu ");
         System.out.println("-------------------------------------------------------");
         System.out.println();
-        System.out.println("1: Sub Menu - Customer");
+        System.out.println("1: Sub Menu - Portfolio");
         System.out.println("2: Sub Menu - User");
         System.out.println("3: Sub Menu - Broker");
         System.out.println("4: Sub Menu - Stock");
+        System.out.println("5: Sub Menu - Stock Ideas");
         System.out.println("100 - Quit");
         System.out.println("***************************************************");
 
@@ -38,7 +42,7 @@ public class SubMenuOptions {
             int userChoice = menuOptions(input);
             switch (userChoice) {
                 case 1:
-                    this.menuCustomer.menuChoice(input);
+                    this.menuPortfolio.menuChoice(input);
                     break;
                 case 2:
                     this.menuUser.menuChoice(input);
@@ -50,6 +54,7 @@ public class SubMenuOptions {
                     this.menuStock.menuChoice(input);
                     break;
                 case 5:
+                    this.menuStock_ideas.menuChoice(input);
                     break;
                 case 6:
                     break;
@@ -66,9 +71,9 @@ public class SubMenuOptions {
                     exit = true;
                     System.out.println("System closed");
                     break;
-//                default:
-//                    System.out.println("\nSorry, please enter valid Option");
-//                    menuChoice(input);
+                default:
+                    System.out.println("\nSorry, please enter valid Option");
+                    menuChoice(input);
             }
         }
     }
