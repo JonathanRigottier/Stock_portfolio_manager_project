@@ -1,6 +1,7 @@
 package menu;
 
 import model.Broker;
+import model.UsersByBroker;
 import persistence.RepositoryBroker;
 
 import java.util.List;
@@ -106,8 +107,8 @@ public class MenuBroker {
     }
 
     private void menuListOfUsersByBroker () {
-        List<Broker> list = repositoryBroker.listOfUsersByBroker();
-        for (Broker broker : list) {
+        List<UsersByBroker> list = repositoryBroker.listOfUsersByBroker();
+        for (UsersByBroker broker : list) {
             System.out.println(broker.toString());
         }
     }

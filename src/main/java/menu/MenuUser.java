@@ -2,11 +2,9 @@ package menu;
 
 import model.Broker;
 import model.User;
-import model.userBrokerPortfolioStock_ideas;
-import persistence.RepositoryBroker;
+import model.UserBrokerPortfolioStock_ideas;
 import persistence.RepositoryUser;
 
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -27,6 +25,7 @@ public class MenuUser {
         System.out.println("5: Total of user(s)");
         System.out.println("6: List of users data");
         System.out.println("7: List of users by typing the broker's name");
+        System.out.println("8: Update the broker of a user");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -58,6 +57,9 @@ public class MenuUser {
                     break;
                 case 7:
                     menuListOfUserByBrokerName(input);
+                    break;
+                case 8:
+                    menuUpdateBrokerOfUser(input);
                     break;
                 case 100:
                     MainMenu.getMainMenu();
@@ -146,8 +148,8 @@ public class MenuUser {
     }
 
     private void menuUserBrokerPorfolioStock_ideas () {
-        List<userBrokerPortfolioStock_ideas> list = repositoryUser.listUsernameWithAmountStockWithBrokerWithStockIdeas();
-        for (userBrokerPortfolioStock_ideas user:list) {
+        List<UserBrokerPortfolioStock_ideas> list = repositoryUser.listUsernameWithAmountStockWithBrokerWithStockIdeas();
+        for (UserBrokerPortfolioStock_ideas user:list) {
             System.out.println(user.toString());
         }
     }
@@ -207,6 +209,21 @@ public class MenuUser {
             System.out.println();
             System.out.println("There is no registered user for " + brokerName + ".");
         }
+    }
+
+    private void menuUpdateBrokerOfUser (Scanner input) {
+        User user = new User();
+        System.out.println("Type the id of the user you want to update the broker : ");
+        int userId = input.nextInt();
+
+        Broker broker = new Broker();
+        System.out.println("Type the id of the new broker of this user : ");
+        int newBrokerId = input.nextInt();
+
+        repositoryUser.updateUserBroker(userId,newBrokerId);
+
+        System.out.println();
+        System.out.println("Broker updated successfully");
 
     }
 }

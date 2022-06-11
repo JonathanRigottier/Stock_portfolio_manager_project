@@ -1,6 +1,7 @@
 package persistence;
 
 import model.Broker;
+import model.UsersByBroker;
 import util.DBUtil;
 
 import javax.persistence.EntityManager;
@@ -53,13 +54,16 @@ public class RepositoryBroker {
 
     }
 
-    public List<Broker> listOfUsersByBroker() {
-        String sql = "SELECT b.name, COUNT(u.broker) " +
-                "FROM User u INNER JOIN Broker b ON u.broker = b.broker_id " +
+    public List listOfUsersByBroker() {
+        String sql = "SELECT new model.UsersByBroker (u.broker.name, COUNT(u.user_id)) " +
+                "FROM User u RIGHT OUTER JOIN u.broker b " +
                 "GROUP BY b.name ";
 
-        return this.entityManager.createQuery(sql, Broker.class)
-                .getResultList();
+        //entityManager.createNativeQuery("SELECT b.name, COUNT(u.broker_id)" +
+        //        "FROM User u RIGHT OUTER JOIN Broker b ON u.broker_id = b.broker_id GROUP BY b.name ");
+
+        return this.entityManager.createQuery(sql, UsersByBroker.class)
+               .getResultList();
 
     }
 }

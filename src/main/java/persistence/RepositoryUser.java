@@ -1,9 +1,7 @@
 package persistence;
 
-import model.Broker;
-import model.Stock;
 import model.User;
-import model.userBrokerPortfolioStock_ideas;
+import model.UserBrokerPortfolioStock_ideas;
 import util.DBUtil;
 
 import javax.persistence.EntityManager;
@@ -60,11 +58,11 @@ public class RepositoryUser {
                 .getSingleResult();
     }
 
-    public List<userBrokerPortfolioStock_ideas> listUsernameWithAmountStockWithBrokerWithStockIdeas() {
+    public List<UserBrokerPortfolioStock_ideas> listUsernameWithAmountStockWithBrokerWithStockIdeas() {
         String sql = "SELECT new model.userBrokerPortfolioStock_ideas (u.username, u.portfolio.amount_of_stock_purchased, u.broker.name,  u.stock_ideas.name) " +
                 "FROM User u";
 
-        return this.entityManager.createQuery(sql, userBrokerPortfolioStock_ideas.class)
+        return this.entityManager.createQuery(sql, UserBrokerPortfolioStock_ideas.class)
                 .getResultList();
     }
 
@@ -73,6 +71,21 @@ public class RepositoryUser {
         return this.entityManager.createQuery(sql, User.class)
                 .setParameter("brokerName", brokerName)
                 .getResultList();
+    }
+
+    public void updateUserBroker (int userId, int newBrokerId) {
+        try {
+            this.entityManager.getTransaction().begin();
+            String sql = "UPDATE User u SET u.broker.broker_id = :nBrokerId WHERE u.user_id = :userId ";
+            entityManager.createQuery(sql)
+                    .setParameter("nBrokerId", newBrokerId)
+                    .setParameter("userId", userId)
+                    .executeUpdate();
+            this.entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            this.entityManager.getTransaction().rollback();
+        }
     }
 
 }

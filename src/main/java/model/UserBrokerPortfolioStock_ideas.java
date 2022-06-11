@@ -1,13 +1,13 @@
 package model;
 
-public class userBrokerPortfolioStock_ideas {
+public class UserBrokerPortfolioStock_ideas {
 
     private String username;
     private int amountOfStockPurchased;
     private String brokerName;
     private String stockIdeasName;
 
-    public userBrokerPortfolioStock_ideas(String username, int amountOfStockPurchased, String brokerName, String stockIdeasName) {
+    public UserBrokerPortfolioStock_ideas(String username, int amountOfStockPurchased, String brokerName, String stockIdeasName) {
         this.username = username;
         this.amountOfStockPurchased = amountOfStockPurchased;
         this.brokerName = brokerName;
